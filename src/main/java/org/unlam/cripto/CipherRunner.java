@@ -1,22 +1,28 @@
 package org.unlam.cripto;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.unlam.cripto.ciphers.Cipher;
 import org.unlam.cripto.ciphers.mickey.Mickey;
 import org.unlam.cripto.utils.Utils;
+import org.unlam.cripto.interfaz.Ventana;
+
+import java.math.BigInteger;
 
 @SpringBootApplication
 public class CipherRunner implements CommandLineRunner {
 
-    private final static int HEADERS_LENGHT = 54;
-
-
+    private final static int HEADERS_LENGHT = 54 ;
+ 
+   
     @Override
     public void run(String... args) throws Exception {
 
         boolean[] K = Utils.initBooleanArrayFromBinaryString(args[0]);
         boolean[] IV = Utils.initBooleanArrayFromBinaryString(args[1]);
+
         Cipher mickey = new Mickey(K, IV);
 
         byte[] bytemessage = Utils.getImageAsByteArray(args[2]);
