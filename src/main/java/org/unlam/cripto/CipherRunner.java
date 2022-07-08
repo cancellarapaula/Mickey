@@ -1,51 +1,25 @@
 package org.unlam.cripto;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.unlam.cripto.ciphers.Cipher;
 import org.unlam.cripto.ciphers.mickey.Mickey;
 import org.unlam.cripto.utils.Utils;
-import org.unlam.cripto.interfaz.ventana;
-
-import java.math.BigInteger;
 
 @SpringBootApplication
 public class CipherRunner implements CommandLineRunner {
 
-    private final static int HEADERS_LENGHT = 54 ;
-    private String binaryKey;
-    private String binaryIV;
-    private String imageInput;
-    private String imageEncrypted;
+    private final static int HEADERS_LENGHT = 54;
 
-  /*  public CipherRunner(@Value("${ciphers.mickey.key}") BigInteger hexaKey,
-                        @Value("${ciphers.mickey.iv}") BigInteger hexaIV,
-                        @Value("${imageInput}") String imageInput,
-                        @Value("${imageEncrypted}") String imageEncrypted) {
-        this.binaryKey = hexaKey.toString(2);
-        this.binaryIV = hexaIV.toString(2);
-       // this.imageInput = imageInput;
-        this.imageInput = ventana.rutaInput;
-        this.imageEncrypted = imageEncrypted;
-       
-    }
-
-
-    public static void main(String[] args) {
-        SpringApplication.run(CipherRunner.class, args);
-    }*/
 
     @Override
     public void run(String... args) throws Exception {
 
-        boolean[] K = Utils.initBooleanArrayFromBinaryString(binaryKey);
-        boolean[] IV = Utils.initBooleanArrayFromBinaryString(binaryIV);
-
+        boolean[] K = Utils.initBooleanArrayFromBinaryString(args[0]);
+        boolean[] IV = Utils.initBooleanArrayFromBinaryString(args[1]);
         Cipher mickey = new Mickey(K, IV);
 
-        byte[] bytemessage = Utils.getImageAsByteArray(imageInput);
+        byte[] bytemessage = Utils.getImageAsByteArray(args[2]);
         byte[] headers = new byte[HEADERS_LENGHT];
         byte[] imagen = new byte[bytemessage.length - HEADERS_LENGHT];
 
@@ -67,7 +41,7 @@ public class CipherRunner implements CommandLineRunner {
             encriptedImageWithHeader[i + HEADERS_LENGHT] = encryptedImage[i];
         }
 
-        Utils.saveByteArrayToFile(imageEncrypted, encriptedImageWithHeader);
+        Utils.saveByteArrayToFile(args[3], encriptedImageWithHeader);
 
     }
 }
