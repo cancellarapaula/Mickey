@@ -8,23 +8,35 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
+import org.unlam.cripto.CipherRunner;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ventana extends JFrame {
 
-	public String rutaInput;
+	public static String rutaInput;
 	private JPanel contentPane;
 	private JTextField textNombreImagen;
 	private JButton btnNewButton_1;
-
+	public static  String key = "0xab8322676fd1333f160f";
+	public static  String iv = "0xa7a36548a932c54a0cfc";
+	public static String imageEncrypted = "C:\\Users\\cance\\OneDrive\\Escritorio\\MICKEY---CIPHER\\imagenes\\encrypted.bmp";
+	/*public String getRutaInput() {
+        return rutaInput;
+    }*/
 	/**
 	 * Launch the application.
 	 */
@@ -44,7 +56,9 @@ public class ventana extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public ventana() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 504, 296);
 		contentPane = new JPanel();
@@ -79,7 +93,13 @@ public class ventana extends JFrame {
 		btnNewButton.setBounds(144, 23, 199, 23);
 		contentPane.add(btnNewButton);
 		
-		btnNewButton_1 = new JButton("DESENCRIPTAR");
+		btnNewButton_1 = new JButton("ENCRIPTAR/DESENCRIPTAR");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			SpringApplication.run(CipherRunner.class,  key,iv,rutaInput,imageEncrypted);
+			}
+			
+		});
 		btnNewButton_1.setBounds(176, 143, 143, 73);
 		contentPane.add(btnNewButton_1);
 		

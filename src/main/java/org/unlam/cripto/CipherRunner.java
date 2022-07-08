@@ -20,13 +20,14 @@ public class CipherRunner implements CommandLineRunner {
     private String imageInput;
     private String imageEncrypted;
 
-    public CipherRunner(@Value("${ciphers.mickey.key}") BigInteger hexaKey,
+  /*  public CipherRunner(@Value("${ciphers.mickey.key}") BigInteger hexaKey,
                         @Value("${ciphers.mickey.iv}") BigInteger hexaIV,
                         @Value("${imageInput}") String imageInput,
                         @Value("${imageEncrypted}") String imageEncrypted) {
         this.binaryKey = hexaKey.toString(2);
         this.binaryIV = hexaIV.toString(2);
-        this.imageInput = imageInput;
+       // this.imageInput = imageInput;
+        this.imageInput = ventana.rutaInput;
         this.imageEncrypted = imageEncrypted;
        
     }
@@ -34,7 +35,7 @@ public class CipherRunner implements CommandLineRunner {
 
     public static void main(String[] args) {
         SpringApplication.run(CipherRunner.class, args);
-    }
+    }*/
 
     @Override
     public void run(String... args) throws Exception {
